@@ -94,7 +94,7 @@ def create_parser():
         help='If True, add linear projection after multi-head attention.')
     parser.add_argument(
         '--attn_alignment_method', type=str, default='add_LN',
-        choices=['add_LN', 'dot'],
+        choices=['add_LN', 'add', 'dot'],
         help='Str, The alignment method / composition method.')
     parser.add_argument(
         '--attn_probability_fn', type=str, default='softmax',

@@ -132,6 +132,8 @@ class ModelBase(object):
         
         if align == 'add_LN':
             att_mech = rops.MultiHeadAddLN
+        elif align == 'add':
+            att_mech = rops.MultiHeadAdd
         elif align == 'dot':
             att_mech = rops.MultiHeadDot
         else:
@@ -216,6 +218,8 @@ class ModelBase(object):
         
         if align == 'add_LN':
             att_mech = rops.MultiHeadAddLN
+        elif align == 'add':
+            att_mech = rops.MultiHeadAdd
         elif align == 'dot':
             att_mech = rops.MultiHeadDot
         else:
