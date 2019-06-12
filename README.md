@@ -34,20 +34,34 @@ Run `./src/setup.sh`. This will download the required Stanford models
 and run all the dataset pre-processing scripts.
 
 ### Training models
+The training scheme is as follows:
+1. Start with `decoder` mode (freezing the CNN)
+1. Followed by `cnn_finetune` mode
+1. Finally, `scst` mode
+
 ```bash
 # MS-COCO
-python train.py  \
-    --token_type 'word'  \
-    --cnn_fm_projection 'none'  \
-    --attn_num_heads 1
+for mode in 'decoder' 'cnn_finetune' 'scst'
+do
+    python train.py  \
+        --train_mode ${mode}  \
+        --token_type 'word'  \
+        --cnn_fm_projection 'tied'  \
+        --attn_num_heads 8
+done
 
 # InstaPIC
-python train.py  \
-    --dataset_file_pattern 'insta_{}_v25595_s15'  \
-    --token_type 'word'  \
-    --cnn_fm_projection 'none'  \
-    --attn_num_heads 1
+for mode in 'decoder' 'cnn_finetune' 'scst'
+do
+    python train.py  \
+        --train_mode ${mode}  \
+        --dataset_file_pattern 'insta_{}_v25595_s15'  \
+        --token_type 'word'  \
+        --cnn_fm_projection 'independent'  \
+        --attn_num_heads 8
+done
 ```
+
 ### Inferencing
 Just point `infer.py` to the directory containing the checkpoints. 
 Model configurations are loaded from `config.pkl`.
@@ -59,9 +73,10 @@ python infer.py  \
 
 # InstaPIC
 python infer.py  \
-	--infer_checkpoints_dir 'insta/word_add_softmax_h8_tie_lstm_run_01'  \
+	--infer_checkpoints_dir 'insta/word_add_softmax_h8_ind_lstm_run_01'  \
 	--annotations_file 'insta_testval_raw.json'
 ```
+
 ### List of arguments / flags
 Please refer to 
 [this repo](https://github.com/jiahuei/COMIC-Compact-Image-Captioning-with-Attention#main-arguments)
