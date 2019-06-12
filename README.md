@@ -78,9 +78,46 @@ python infer.py  \
 	--annotations_file 'insta_testval_raw.json'
 ```
 
-### List of arguments / flags
-Please refer to 
-[this repo](https://github.com/jiahuei/COMIC-Compact-Image-Captioning-with-Attention#main-arguments)
+### List of major arguments / flags
+#### train.py
+- Main:
+    - `train_mode`: The training regime. Choices are `decoder`, `cnn_finetune`, `scst`.
+    - `token_type`: Language model. Choices are `word`, `radix`, `char`.
+- CNN:
+    - `cnn_name`: CNN model name.
+    - `cnn_input_size`: CNN input size.
+    - `cnn_fm_attention`: End point name of feature map for attention.
+    - `cnn_fm_projection`: Feature map projection method. Choices are `none`, `independent`, `tied`.
+- RNN:
+    - `rnn_name`: Type of RNN. Choices are `LSTM`, `LN_LSTM`, `GRU`.
+    - `rnn_size`: Number of RNN units.
+    - `rnn_word_size`: Size of word embedding.
+    - `rnn_init_method`: RNN init method. Choices are `project_hidden`, `first_input`.
+    - `rnn_recurr_dropout`: If `True`, enable variational recurrent dropout.
+- Attention:
+    - `attn_num_heads`: Number of attention heads.
+    - `attn_context_layer`: If `True`, add linear projection after multi-head attention.
+    - `attn_alignment_method`: Alignment / composition method. Choices are `add_LN`, `dot`.
+    - `attn_probability_fn`: Attention map probability function. Choices are `softmax`, `sigmoid`.
+- SCST:
+    - `scst_beam_size`: The beam size for SCST sampling.
+    - `scst_weight_ciderD`: The weight for CIDEr-D metric during SCST training.
+    - `scst_weight_bleu`: The weight for BLEU metrics during SCST training.
+
+#### infer.py
+- Main:
+    - `infer_set`: The split to perform inference on. Choices are `test`, `valid`, `coco_test`, `coco_valid`.
+    `coco_test` and `coco_valid` are for inferencing on the whole 
+    `test2014` and `val2014` sets respectively. 
+    These are used for MS-COCO online server evaluation.
+    - `infer_checkpoints_dir`: Directory containing the checkpoint files.
+    - `infer_checkpoints`: Checkpoint numbers to be evaluated. Comma-separated.
+    - `annotations_file`: Annotations / reference file for calculating scores.
+- Inference parameters:
+    - `infer_beam_size`: Beam size of beam search. Pass `1` for greedy search.
+    - `infer_length_penalty_weight`: Length penalty weight used in beam search.
+    - `infer_max_length`: Maximum caption length allowed during inference.
+    - `batch_size_infer`: Inference batch size for parallelism.
 
 
 ## Avoid re-downloading datasets
