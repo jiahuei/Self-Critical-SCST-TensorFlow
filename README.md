@@ -11,6 +11,7 @@ image captioning frameworks including:
 - Multi-Head Visual Attention
     - Additive (with optional Layer Norm) [[arxiv]](https://arxiv.org/abs/1903.01072)
     - Scaled Dot-Product [[arxiv]](https://arxiv.org/abs/1706.03762)
+- Graph-based Beam Search, Greedy Search and Sampling
 
 The features might not be completely tested. For a more stable implementation,
 please refer to [this repo](https://github.com/jiahuei/COMIC-Compact-Image-Captioning-with-Attention).
