@@ -97,7 +97,7 @@ python infer.py  \
 - Attention:
     - `attn_num_heads`: Number of attention heads.
     - `attn_context_layer`: If `True`, add linear projection after multi-head attention.
-    - `attn_alignment_method`: Alignment / composition method. Choices are `add_LN`, `dot`.
+    - `attn_alignment_method`: Alignment / composition method. Choices are `add_LN`, `add`, `dot`.
     - `attn_probability_fn`: Attention map probability function. Choices are `softmax`, `sigmoid`.
 - SCST:
     - `scst_beam_size`: The beam size for SCST sampling.
@@ -182,6 +182,7 @@ This code assumes the following dataset directory structures:
 
 ## Acknowledgements
 Thanks to the developers of:
+- [[attend2u]](https://github.com/cesc-park/attend2u/tree/c1185e550c72f71daa74a6ac95791cbf33363b27)
 - [[coco-caption]](https://github.com/tylin/coco-caption/tree/3a9afb2682141a03e1cdc02b0df6770d2c884f6f)
 - [[ruotianluo/self-critical.pytorch]](https://github.com/ruotianluo/self-critical.pytorch/tree/77dff3223ba2fefe26047ff6ef560c2aa0e1f942)
 - [[ruotianluo/cider]](https://github.com/ruotianluo/cider/tree/dbb3960165d86202ed3c417b412a000fc8e717f3)
