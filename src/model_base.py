@@ -4,15 +4,6 @@
 Created on Fri Jul 14 16:43:38 2017
 
 @author: jiahuei
-
-Differences:
-    1. Added attention map dropout
-    2. Possible RNN variational dropout
-    3. Possible context layer
-    4. Changed RNN init method
-    5. Changed training scheme (LR, ADAM epsilon)
-
-
 """
 from __future__ import absolute_import
 from __future__ import division
