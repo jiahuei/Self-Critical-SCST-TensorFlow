@@ -19,9 +19,6 @@ from tqdm import tqdm
 #from PIL import Image
 #Image.MAX_IMAGE_PIXELS = None
 # By default, PIL limit is around 89 Mpix (~ 9459 ** 2)
-
-
-_EXT = ['.jpg', '.JPG', '.jpeg', '.JPEG', '.png', '.PNG']
 pjoin = os.path.join
 
 try:
@@ -30,26 +27,29 @@ except ImportError:
     natsorted = None
 
 
-def maybe_download_from_url(url, dest_dir, wget=True, file_size=None):
+def maybe_download_from_url(url, dest_dir,
+                            wget=True, wget_args=[],
+                            file_name=None, file_size=None):
     """
     Downloads file from URL, streaming large files.
     """
-    fname = url.split('/')[-1]
+    if file_name is None:
+        file_name = url.split('/')[-1]
     if not os.path.exists(dest_dir):
         os.makedirs(dest_dir)
-    fpath = pjoin(dest_dir, fname)
+    fpath = pjoin(dest_dir, file_name)
     if os.path.isfile(fpath):
-        print('INFO: Found file `{}`'.format(fname))
+        print('INFO: Found file `{}`'.format(file_name))
         return fpath
     if wget:
         import subprocess
-        subprocess.call(['wget', url], cwd=dest_dir)
+        subprocess.call(['wget', url] + wget_args, cwd=dest_dir)
     else:
         import requests
         response = requests.get(url, stream=True)
         chunk_size = 1024 ** 2          # 1 MB
         if response.ok:
-            print('INFO: Downloading `{}`'.format(fname))
+            print('INFO: Downloading `{}`'.format(file_name))
         else:
             print('ERROR: Download error. Server response: {}'.format(response))
             return False
@@ -72,7 +72,7 @@ def maybe_download_from_url(url, dest_dir, wget=True, file_size=None):
             for chunk in tqdm(response.iter_content(chunk_size), **tqdm_kwargs):
                 if not chunk: break
                 handle.write(chunk)
-    print('INFO: Download complete: `{}`'.format(fname))
+    print('INFO: Download complete: `{}`'.format(file_name))
     return fpath
 
 

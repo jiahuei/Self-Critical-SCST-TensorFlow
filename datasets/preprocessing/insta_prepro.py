@@ -25,7 +25,7 @@ pjoin = os.path.join
 #itow_file = 'insta_itow_w5_s15_split.json'
 
 # For tokenization
-# https://github.com/cesc-park/attend2u/blob/master/scripts/generate_dataset.py
+# https://github.com/cesc-park/attend2u/blob/c1185e550c72f71daa74a6ac95791cbf33363b27/scripts/generate_dataset.py
 try:
     # UCS-4
     EMOTICON = re.compile(u'(([\U00002600-\U000027BF])|([\U0001f300-\U0001f64F])|([\U0001f680-\U0001f6FF]))')
@@ -144,10 +144,26 @@ if __name__ == '__main__':
     if json_exists:
         print('INFO: Found exising json files.')
     else:
-        utils.maybe_download_from_google_drive(
-                                r'0B3xszfcsfVUBdG0tU3BOQWV0a0E',
-                                tgz_path,
-                                file_size=669*1024**2)
+        wget_args = [
+            "--header='Host: doc-00-0g-docs.googleusercontent.com'",
+            "--header='User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'",
+            "--header='Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3'",
+            "--header='Accept-Language: en,en-GB;q=0.9,zh-CN;q=0.8,zh;q=0.7,zh-TW;q=0.6,id;q=0.5,ms;q=0.4'",
+            "--header='Referer: https://drive.google.com/uc?export=download&id=0B3xszfcsfVUBdG0tU3BOQWV0a0E'",
+            "--header='Cookie: AUTH_680iobl2urv1hiapaof741g1u8q292dj_nonce=lcb95q5qvmv1e; NID=184=nka_USy_PIuQCkSdbB7rtmUCF0Qjc_Tqb5TXYu1XVXjAzKhN4wPjitFkiWe7hhszhPhQQLpsy2P2aIzJRAeGytfvXI8iQswD-oJiXfUH5X-aUE6P0GoatS0vpF2ERD1BD4r08GW5FT7sAyFMQSDo3Q0Ra2hKayV6-su5pWZWKNw'",
+            "--header='Connection: keep-alive'",
+            "-O 'json.tar.gz'",
+            "-c"
+            ]
+        #utils.maybe_download_from_google_drive(
+        #                        r'0B3xszfcsfVUBdG0tU3BOQWV0a0E',
+        #                        tgz_path,
+        #                        file_size=669*1024**2)
+        tgz_path = utils.maybe_download_from_url(
+            'https://doc-00-0g-docs.googleusercontent.com/docs/securesc/0a8srrhu1sgvmq9ki82gieqbcp71ibqd/pj802jt2vg71tneb07s636ct6jj9aghs/1560333600000/11132532297508042507/11028207063118656345/0B3xszfcsfVUBdG0tU3BOQWV0a0E?e=download&nonce=lcb95q5qvmv1e&user=11028207063118656345&hash=7jcmphd9364l22qti6p3uvmhnk719l64',
+            dset_dir,
+            wget_args=wget_args,
+            file_name='json.tar.gz')
         utils.extract_tar_gz(tgz_path)
         os.remove(tgz_path)
     
@@ -296,10 +312,26 @@ if __name__ == '__main__':
     if img_exists:
         print('INFO: Found exising image files.')
     else:
+        wget_args = [
+            "--header='Host: doc-04-0g-docs.googleusercontent.com'",
+            "--header='User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'",
+            "--header='Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3'",
+            "--header='Accept-Language: en,en-GB;q=0.9,zh-CN;q=0.8,zh;q=0.7,zh-TW;q=0.6,id;q=0.5,ms;q=0.4'",
+            "--header='Referer: https://drive.google.com/uc?export=download&confirm=vDy5&id=0B3xszfcsfVUBVkZGU2oxYVl6aDA'",
+            "--header='Cookie: AUTH_680iobl2urv1hiapaof741g1u8q292dj=11028207063118656345|1560333600000|jri9kc5353rf1q7ahtdnbltoiggnuh8s; NID=184=nka_USy_PIuQCkSdbB7rtmUCF0Qjc_Tqb5TXYu1XVXjAzKhN4wPjitFkiWe7hhszhPhQQLpsy2P2aIzJRAeGytfvXI8iQswD-oJiXfUH5X-aUE6P0GoatS0vpF2ERD1BD4r08GW5FT7sAyFMQSDo3Q0Ra2hKayV6-su5pWZWKNw'",
+            "--header='Connection: keep-alive'",
+            "-O 'images.tar.gz'",
+            "-c"
+            ]
         utils.maybe_download_from_google_drive(
                                 r'0B3xszfcsfVUBVkZGU2oxYVl6aDA',
                                 tgz_path,
                                 file_size=20*1024**3)
+        #tgz_path = utils.maybe_download_from_url(
+        #    'https://doc-04-0g-docs.googleusercontent.com/docs/securesc/0a8srrhu1sgvmq9ki82gieqbcp71ibqd/gtrvfmhghdfiilrr51uihavrgti8o0h8/1560333600000/11132532297508042507/11028207063118656345/0B3xszfcsfVUBVkZGU2oxYVl6aDA?e=download',
+        #    dset_dir,
+        #    wget_args=wget_args,
+        #    file_name='images.tar.gz')
         utils.extract_tar_gz(tgz_path)
         os.remove(tgz_path)
     
